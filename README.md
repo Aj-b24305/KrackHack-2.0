@@ -22,6 +22,14 @@ Mal-Chek-Kar is a static malware analysis tool developed by Team KrackJack. It a
    - If YARA rules match, the file is marked as **Malicious**, and a 'View Matches' button appears.
    - Clicking 'View Matches' displays the specific YARA rules that triggered the detection.
 
+## How To Run
+- Clone this repository using "git clone https://github.com/Aj-b24305/KrackHack-2.0/".
+- Go inside the KrackHack-2.0 folder then do "git clone https://github.com/Yara-Rules/rules" to add the yara rules.
+- Make sure the newly cloned folder has the name rules.
+- On terminal run "pip install -r requirements.txt (run in the same folder)".
+- On terminal run python3 app.py.
+- Open the local host site.
+
 ## YARA Rule Sources
 We use predefined YARA rule sets for scanning files. Our YARA rules are sourced from the following repository:
 [https://github.com/Yara-Rules](https://github.com/Yara-Rules)
