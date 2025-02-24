@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mal-Chek_Kar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .collapsible {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      padding: 16px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    .active, .collapsible:hover {
+      background-color: #0056b3;
+    }
+    .content {
+      padding: 0 16px;
+      display: none;
+      overflow: hidden;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+    .malicious {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    .clean {
+      color: #28a745;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mal-Chek-Kar</h1>
+      <p class="instructions">Upload a file (allowed types: txt, pdf, exe, dll, pptx, ppt, doc, docx) to scan for malware.</p>
+    </header>
+    <main>
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Scan File">
+      </form>
+
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+
+      {% if results %}
+        <div class="results">
+          <h2>Scan Results for: {{ results.filename }}</h2>
+          <p><strong>Result:</strong>
+            {% if results.scan_result == 'MALICIOUS' %}
+              <span class="malicious">MALICIOUS</span>
+            {% elif results.scan_result == 'CLEAN' %}
+              <span class="clean">CLEAN</span>
+            {% else %}
+              <span>Error during scan</span>
+            {% endif %}
+          </p>
+
+          {% if results.matches %}
+            <button type="button" class="collapsible">View Matches</button>
+            <div class="content">
+              <ul>
+                {% for match in results.matches %}
+                  <li>{{ match }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </main>
+    <footer>
+      <p>&copy; 2025 Mal-Chek-Kar. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      });
+    }
+  </script>
+</body>
+</html>
+
